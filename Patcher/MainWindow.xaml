@@ -1,0 +1,88 @@
+﻿<Window x:Class="Patcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Patcher"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:MainViewModel x:Key="MainViewModel"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Source="{StaticResource MainViewModel}"/>
+    </Window.DataContext>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Old file:" Height="25" Margin="10,10,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                     Height="25" Margin="10,10,0,0" Text="{Binding OldTextBoxText}"
+                     IsReadOnly="True" VerticalContentAlignment="Center"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="..." Width="25" HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" Height="25" Margin="10, 10, 10, 0" 
+                    Command="{Binding BrowseCommand}" CommandParameter="old"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="New file:" Height="25" Margin="10,10,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                     Height="25" Margin="10,10,0,0" Text="{Binding NewTextBoxText}"
+                     IsReadOnly="True" VerticalContentAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="..." Width="25" HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" Height="25" Margin="10, 10, 10, 0" 
+                    Command="{Binding BrowseCommand}" CommandParameter="new"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Content="Process file" Width="100" Height="25" Margin="10,10,0,0"
+                    Command="{Binding ProcessCommand}"/>
+        </Grid>
+        <Grid Margin="0, 40, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="File to patch:" Height="25" Margin="10,10,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                     Height="25" Margin="10,10,0,0" Text="{Binding FileToPatchTextBoxText}"
+                     IsReadOnly="True" VerticalContentAlignment="Center"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="..." Width="25" HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" Height="25" Margin="10, 10, 10, 0" 
+                    Command="{Binding BrowseCommand}" CommandParameter="fileToPatch"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Patch file:" Height="25" Margin="10,10,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                     Height="25" Margin="10,10,0,0" Text="{Binding PatchTextBoxText}"
+                     IsReadOnly="True" VerticalContentAlignment="Center"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="..." Width="25" HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" Height="25" Margin="10, 10, 10, 0" 
+                    Command="{Binding BrowseCommand}" CommandParameter="patch"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Content="Patch" Width="100" Height="25" Margin="10,10,0,0"
+                    Command="{Binding PatchCommand}"/>
+        </Grid>
+    </StackPanel>
+</Window>
