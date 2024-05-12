@@ -28,7 +28,7 @@ public class PatchFile(string? filename, string? patchFilename)
         {
             diffFile = MessagePackSerializer.Deserialize<DiffFile>(diffFileBlock);
             
-            var hash = Hashing.GetFileHash(Filename);
+            var hash = Hashing.FileHash(Filename);
             
             if (hash.SequenceEqual(diffFile.OldFile))
             {
@@ -67,7 +67,7 @@ public class PatchFile(string? filename, string? patchFilename)
         File.Delete(Path.ChangeExtension(PatchFilename, "patch"));
         File.Delete(Path.ChangeExtension(PatchFilename, "bin"));
 
-        var hashAfterPatch = Hashing.GetFileHash(Filename);
+        var hashAfterPatch = Hashing.FileHash(Filename);
 
         Console.WriteLine(hashAfterPatch.SequenceEqual(diffFile.NewFile)
             ? @"Patch applied successfully"

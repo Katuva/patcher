@@ -6,27 +6,32 @@ namespace Patcher;
 
 public static class Hashing
 {
-    public static byte[] GetFileHash(string filename)
+    public static byte[] FileHash(string filename)
     {
+        const int bufferSize = 4096;
+        
         var hashAlgorithm = new XxHash3();
         
-        using (Stream entryStream = File.OpenRead(filename))
+        var buffer = ArrayPool<byte>.Shared.Rent(bufferSize);
+        
+        using var stream = File.OpenRead(filename);
+        try
         {
-            var buffer = ArrayPool<byte>.Shared.Rent(4096);
             int bytesRead;
-            
-            while ((bytesRead = entryStream.Read(buffer)) > 0)
+            while ((bytesRead = stream.Read(buffer)) > 0)
             {
                 hashAlgorithm.Append(buffer.AsSpan(0, bytesRead));
             }
-            
+        }
+        finally
+        {
             ArrayPool<byte>.Shared.Return(buffer);
         }
-        
+
         return hashAlgorithm.GetHashAndReset();
     }
     
-    public static byte[] GetChunkHash(byte[] data)
+    public static byte[] ChunkHash(byte[] data)
     {
         return XxHash3.Hash(data);
     }

@@ -17,8 +17,8 @@ public class FileDiff(string? oldFile, string? newFile, int chunkSize = 4096)
 
         stopwatch.Start();
         
-        var oldHash = Hashing.GetFileHash(OldFile);
-        var newHash = Hashing.GetFileHash(NewFile);
+        var oldHash = Hashing.FileHash(OldFile);
+        var newHash = Hashing.FileHash(NewFile);
         
         if (oldHash.SequenceEqual(newHash))
         {
